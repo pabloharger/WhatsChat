@@ -29,7 +29,7 @@ export const addContactAdd = email => (
                     const emailUser64 = b64.encode(currentUser.email);
                     if (emailB64 !== emailUser64) {
                         firebase.database().ref(`/user_contacts/${emailUser64}`)
-                            .push({ email, nome: userData.name })
+                            .push({ email, name: userData.name })
                             .then(() => addContactSuccsess(dispatch))
                             .catch(error => addContactFailed(error.message, dispatch));
                     } else {
@@ -65,7 +65,6 @@ export const userContactsFetch = () => {
 
     return (dispatch) => {
         const emailB64 = b64.encode(currentUser.email);
-
         firebase.database().ref(`/user_contacts/${emailB64}`)
             .on('value', (snapshot) => {
                 dispatch({
