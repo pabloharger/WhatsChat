@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import { TabViewAnimated, SceneMap } from 'react-native-tab-view';
 
 import TabBarMenu from './TabBarMenu';
-import Chats from './Chats';
-import Contacts from './Contacts';
+import SceneListChats from './SceneListChats';
+import SceneListContacts from './SceneListContacts';
 
 export default class SceneMain extends Component {
   state = {
@@ -20,8 +20,8 @@ export default class SceneMain extends Component {
   _renderHeader = props => <TabBarMenu {...props} />;
 
   _renderScene = SceneMap({
-    1: Chats,
-    2: Contacts
+    1: SceneListChats,
+    2: SceneListContacts
   });
 
   render() {

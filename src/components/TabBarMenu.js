@@ -10,7 +10,9 @@ import {
 import { TabBar } from 'react-native-tab-view';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { updateSuccess } from '../actions/AppActions';
+import { loginSignOut } from '../actions/AutenticationActions';
 
 const imgAddContact = require('../imgs/add-contact.png');
 
@@ -35,7 +37,12 @@ const TabBarMenu = props => (
                     </TouchableHighlight>
                 </View>
                 <View style={styles.headerControlsContentText}>
-                    <Text style={styles.headControlsText}>Sign Out</Text>
+                    <TouchableHighlight
+                        underlayColor='transparent'
+                        onPress={() => props.loginSignOut()}
+                    >
+                        <Text style={styles.headControlsText}>Sign Out</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         </View>
@@ -91,4 +98,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect(null, { updateSuccess })(TabBarMenu);
+export default connect(null, { updateSuccess, loginSignOut })(TabBarMenu);

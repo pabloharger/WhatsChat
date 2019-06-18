@@ -8,17 +8,18 @@ import {
     LOGIN_ERROR,
     LOGIN_SUCCESS,
     LOGIN_LOADING,
+    LOGIN_SIGN_OUT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
     name: '',
-    email: 'pabloharger@gmail.com',
-    password: '123456',
+    email: '',
+    password: '',
     errorRegister: '',
     errorLogin: '',
     loadingLogin: false,
     loadingRegister: false,
-}
+};
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -40,6 +41,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, loadingLogin: false };
         case LOGIN_LOADING:
             return { ...state, loadingLogin: true, errorLogin: '' };
+        case LOGIN_SIGN_OUT: 
+            return { ...state, ...INITIAL_STATE };
         default: return state;
     }
-}
+};

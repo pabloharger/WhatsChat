@@ -43,7 +43,7 @@ class SceneLogin extends Component {
             <TouchableHighlight
                 style={styles.footerButton}
                 onPress={() => this._autenticateUser()}
-                underlayColor= '#4c779b'
+                underlayColor='#4c779b'
             >
                 <Text style={styles.footerText}>Login</Text>
             </TouchableHighlight>

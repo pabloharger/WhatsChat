@@ -8,7 +8,8 @@ import SceneLogin from './components/SceneLogin';
 import SceneRegister from './components/SceneRegister';
 import SceneWelcome from './components/SceneWelcome';
 import SceneMain from './components/SceneMain';
-import AddContact from './components/AddContact';
+import SceneAddContact from './components/SceneAddContact';
+import SceneChat from './components/SceneChat';
 
 const routes = () => (
 	<Router
@@ -43,8 +44,15 @@ const routes = () => (
 			/>
 			<Scene
 				key='addContact'
-				component={AddContact}
+				component={SceneAddContact}
 				title='Add Contact'
+				hideNavBar={false}
+				underlayColor='#115E54'
+			/>
+			<Scene
+				key='chat'
+				component={SceneChat}
+				title='Chat'
 				hideNavBar={false}
 				underlayColor='#115E54'
 			/>

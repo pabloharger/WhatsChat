@@ -11,6 +11,7 @@ import {
     LOGIN_ERROR,
     LOGIN_SUCCESS,
     LOGIN_LOADING,
+    LOGIN_SIGN_OUT,
 } from './types';
 
 export const modifyEmail = text => (
@@ -84,3 +85,13 @@ export const loginUserFailed = (error, dispatch) => {
         payload: error.message
     });
 };
+
+export const loginSignOut = () => (
+    dispatch => {
+        firebase.auth().signOut()
+            .then(() => {
+                dispatch({ type: LOGIN_SIGN_OUT });
+                Actions.login();
+            });
+    }
+);

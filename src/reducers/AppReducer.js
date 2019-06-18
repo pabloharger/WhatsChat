@@ -3,13 +3,16 @@ import {
     ADD_CONTACT_ERROR,
     ADD_CONTACT_SUCCESS,
     ADD_CONTACT_LOADING,
+    CHAT_MESSAGE_TO_SEND,
+    CHAT_SEND_MESSAGE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    addContactEmail: 'raquelortunio@gmail.com',
+    addContactEmail: '',
     addContactError: '',
     addContactLoading: false,
     addContactSuccess: false,
+    chatMessageToSend: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -27,6 +30,10 @@ export default (state = INITIAL_STATE, action) => {
             };
         case ADD_CONTACT_LOADING:
             return { ...state, addContactLoading: true, addContactError: '' };
+        case CHAT_MESSAGE_TO_SEND:
+            return { ...state, chatMessageToSend: action.payload };
+        case CHAT_SEND_MESSAGE:
+            return { ...state, chatMessageToSend: '' };
         default:
             return state;
     }

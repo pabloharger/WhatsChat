@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
 import AutenticationReducer from './AutenticationReducer';
 import AppReducer from './AppReducer';
-import ContactListReducert from './ContactListReducert';
+import ContactListReducer from './ContactListReducer';
+import ListChatReducer from './ListChatReducer';
+import ListChatsReducer from './ListChatsReducer';
 
 export default combineReducers({
     AutenticationReducer,
     AppReducer,
-    ContactListReducert,
+    ContactListReducer,
+    ListChatReducer,
+    ListChatsReducer,
 });

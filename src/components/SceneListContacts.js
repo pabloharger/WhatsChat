@@ -4,9 +4,11 @@ import {
     Text,
     ListView,
     StyleSheet,
+    TouchableHighlight,
 } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
     userContactsFetch,
 } from '../actions/AppActions';
@@ -27,17 +29,32 @@ class Contacts extends Component {
         this.dataSource = ds.cloneWithRows(contacts);
     }
 
+    renderRow(contact) {
+        return (
+            <TouchableHighlight
+                onPress={() => Actions.chat(
+                    { 
+                        title: contact.name,
+                        contactName: contact.name,
+                        contactEmail: contact.email
+                    })
+                }
+                underlayColor='#FFF'
+            >
+            <View style={styles.view}>
+                <Text style={styles.fontName}>{contact.name}</Text>
+                <Text style={styles.fontEmail}>{contact.email}</Text>
+            </View>
+            </TouchableHighlight>
+        );
+    }
+
     render() {
         return (
             <ListView 
                 enableEmptySections
                 dataSource={this.dataSource}
-                renderRow={data => (
-                    <View style={styles.view}>
-                        <Text style={styles.fontName}>{data.name}</Text>
-                        <Text style={styles.fontEmail}>{data.email}</Text>
-                    </View>
-                )}
+                renderRow={this.renderRow}
             />
         );
     }   
