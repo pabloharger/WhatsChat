@@ -15,12 +15,6 @@ import {
 
 class AddContact extends Component {
 
-    constructor(props) {
-        super(props);
-
-        console.log(props);
-    }
-
     renderAddContact() {
         if (this.props.addContactSuccess) {
             return (

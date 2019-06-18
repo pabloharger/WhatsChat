@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    ListView,
+    FlatList,
     Text,
     StyleSheet,
     TouchableHighlight,
@@ -17,30 +17,21 @@ class SceneListChats extends Component {
 
     componentWillMount() {
         this.props.chatsUserFetch();
-        this.createDataSource(this.props.chats);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.createDataSource(nextProps.chats);
-    }
-
-    createDataSource(chat) {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows(chat);
     }
 
     renderRow(chat) {
         return (
             <TouchableHighlight
                 onPress={() => Actions.chat({
-                    title: chat.name,
-                    contactName: chat.name,
-                    contactEmail: chat.email
+                    title: chat.item.name,
+                    contactName: chat.item.name,
+                    contactEmail: chat.item.email
                 })}
                 underlayColor='#FFF'
+                key={chat.item.email}
             >
-                <View style={styles.chat}>
-                    <Text style={styles.chatText}>{chat.name}</Text>
+                <View style={styles.chat} key={chat.item.email}>
+                    <Text style={styles.chatText} key={chat.item.email}>{chat.item.name}</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -48,11 +39,14 @@ class SceneListChats extends Component {
 
     render() {
         return (
-            <ListView
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-            />
+            <View>
+                <FlatList
+                    enableEmptySections
+                    data={this.props.chats}
+                    renderItem={this.renderRow}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
         );
     }
 }

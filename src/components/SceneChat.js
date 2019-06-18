@@ -5,7 +5,7 @@ import {
     TextInput,
     Image,
     TouchableHighlight,
-    ListView,
+    FlatList,
     Text,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -29,19 +29,6 @@ class SceneChat extends Component {
 
     componentWillMount() {
         this.props.chatUserFetch(this.props.contactEmail);
-        this.createDataSource(this.props.chat);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.contactEmail !== nextProps.contactEmail) {
-            this.chatUserFetch(nextProps.contactEmail);
-        }
-        this.createDataSource(nextProps.chat);
-    }
-
-    createDataSource(chat) {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows(chat);
     }
 
     _sendMessage() {
@@ -50,30 +37,30 @@ class SceneChat extends Component {
     }
 
     renderRow(message) {
-        if (message.type === 's') {
+        if (message.item.type === 's') {
             return (
                 <View style={styles.messageSend}>
-                    <Text style={styles.messageTextSend}>{message.message}</Text>
+                    <Text style={styles.messageTextSend}>{message.item.message}</Text>
                 </View>
             );
         }
 
         return (
             <View style={styles.messageReceived}>
-                <Text style={styles.messageTextReceived}>{message.message}</Text>
+                <Text style={styles.messageTextReceived}>{message.item.message}</Text>
             </View>
         );
     }
 
     render() {
-        console.log(this.props);
         return (
             <View style={styles.container}>
                 <View style={styles.messages}>
-                    <ListView 
+                    <FlatList
                         enableEmptySections
-                        dataSource={this.dataSource}
-                        renderRow={this.renderRow}
+                        data={this.props.chat}
+                        renderItem={this.renderRow}
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
                 <View style={styles.send}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    ListView,
+    FlatList,
     StyleSheet,
     TouchableHighlight,
 } from 'react-native';
@@ -17,33 +17,27 @@ class Contacts extends Component {
 
     componentWillMount() {
         this.props.userContactsFetch();
-        this.createDataSource(this.props.contacts);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.createDataSource(nextProps.contacts);
-    }
-
-    createDataSource(contacts) {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows(contacts);
     }
 
     renderRow(contact) {
+        //alert(JSON.stringify(contact.item));
+        if (contact.item === undefined) {
+            return <View />;
+        }
         return (
             <TouchableHighlight
                 onPress={() => Actions.chat(
                     { 
-                        title: contact.name,
-                        contactName: contact.name,
-                        contactEmail: contact.email
+                        title: contact.item.name,
+                        contactName: contact.item.name,
+                        contactEmail: contact.item.email
                     })
                 }
                 underlayColor='#FFF'
             >
             <View style={styles.view}>
-                <Text style={styles.fontName}>{contact.name}</Text>
-                <Text style={styles.fontEmail}>{contact.email}</Text>
+                <Text style={styles.fontName}>{contact.item.name}</Text>
+                <Text style={styles.fontEmail}>{contact.item.email}</Text>
             </View>
             </TouchableHighlight>
         );
@@ -51,11 +45,14 @@ class Contacts extends Component {
 
     render() {
         return (
-            <ListView 
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-            />
+            <View>
+                <FlatList
+                    enableEmptySections
+                    data={this.props.contacts}
+                    renderItem={this.renderRow}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
         );
     }   
 }
