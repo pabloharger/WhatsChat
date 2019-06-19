@@ -93,10 +93,7 @@ export const chatSendMessage = (message, contactName, contactEmail) => {
 
     return (dispatch) => {
         firebase.database().ref(`/messages/${userEmailB64}/${contactEmailB64}`)
-            .push({
-                message,
-                type: 's',
-            })
+            .push({ message, type: 's' })
             .then(() => {
                 firebase.database().ref(`/messages/${contactEmailB64}/${userEmailB64}`)
                     .push({ message, type: 'r' })
@@ -112,7 +109,7 @@ export const chatSendMessage = (message, contactName, contactEmail) => {
                     .then(snapshot => {
                         const userData = _.first(_.values(snapshot.val()));
                         firebase.database().ref(`user_chats/${contactEmailB64}/${userEmailB64}`)
-                        .set({ name: userData.name, email: userEmailB64 });
+                        .set({ name: userData.name, email: userEmail });
                     });
             });
     };
@@ -137,6 +134,8 @@ export const chatUserFetch = contactEmail => {
 export const chatsUserFetch = () => {
     const userEmail = firebase.auth().currentUser.email;
     const userEmailB64 = b64.encode(userEmail);
+
+    console.log(userEmail);
 
     return dispatch => {
         firebase.database().ref(`/user_chats/${userEmailB64}/`)

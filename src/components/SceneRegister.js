@@ -71,6 +71,7 @@ class SceneRegister extends Component {
                             placeholder='Email'
                             placeholderTextColor='#FFF'
                             onChangeText={text => this.props.modifyEmail(text)}
+                            autoCapitalize='none'
                         />
                         <TextInput
                             secureTextEntry

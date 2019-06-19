@@ -63,7 +63,8 @@ class SceneLogin extends Component {
                             style={styles.contentTextInput} 
                             placeholder='E-mail' 
                             placeholderTextColor='#FFF'
-                            onChangeText={(text) => this.props.modifyEmail(text) }
+                            autoCapitalize='none'
+                            onChangeText={(text) => this.props.modifyEmail(text)}
                         />
                         <TextInput
                             secureTextEntry
@@ -76,7 +77,7 @@ class SceneLogin extends Component {
                         <Text style={styles.textError}>{this.props.errorLogin}</Text>
                         <TouchableHighlight
                             onPress={() => Actions.register()}
-                            underlayColor= 'transparent'
+                            underlayColor='transparent'
                         >
                             <Text style={styles.contentText}>Not yet registered? Register Now</Text>
                         </TouchableHighlight>

@@ -42,7 +42,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_LOADING:
             return { ...state, loadingLogin: true, errorLogin: '' };
         case LOGIN_SIGN_OUT: 
-            return { ...state, ...INITIAL_STATE };
+            return { ...INITIAL_STATE };
         default: return state;
     }
 };

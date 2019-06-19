@@ -34,6 +34,7 @@ class AddContact extends Component {
                         style={styles.inputText}
                         value={this.props.addContactEmailaddContactEmail}
                         onChangeText={(text) => this.props.addContactModifyAddEmail(text)}
+                        autoCapitalize='none'
                     />
                     <Text style={styles.textError}>{this.props.addContactError}</Text>
                 </View>

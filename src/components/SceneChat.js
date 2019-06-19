@@ -23,8 +23,8 @@ class SceneChat extends Component {
     constructor(props) {
         super(props);
 
-        // eslint-disable-next-line no-underscore-dangle
         this._sendMessage = this._sendMessage.bind(this);
+        this.renderRow = this.renderRow.bind(this);
     }
 
     componentWillMount() {
@@ -39,7 +39,7 @@ class SceneChat extends Component {
     renderRow(message) {
         if (message.item.type === 's') {
             return (
-                <View style={styles.messageSend}>
+                <View style={styles.messageSent}>
                     <Text style={styles.messageTextSend}>{message.item.message}</Text>
                 </View>
             );
@@ -70,7 +70,6 @@ class SceneChat extends Component {
                         value={this.props.chatMessageToSend}
                     />
                     <TouchableHighlight
-                        // eslint-disable-next-line no-underscore-dangle
                         onPress={() => this._sendMessage()}
                         underlayColor='#EEE4DC'
                     >
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         fontSize: 18,
     },
-    messageSend: {
+    messageSent: {
         alignItems: 'flex-end',
         marginTop: 5,
         marginBottom: 5,
