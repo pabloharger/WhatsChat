@@ -1,4 +1,4 @@
-# WhatsChat# WhatsChat
+# WhatsChat
 
 rename sample_config.js to config.js and adjust with your firebase configuration
 
