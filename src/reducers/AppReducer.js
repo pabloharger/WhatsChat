@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 addContactLoading: false,
                 addContactSuccess: action.payload,
-                addContactEmail: ''
+                addContactEmail: '',
             };
         case ADD_CONTACT_LOADING:
             return { ...state, addContactLoading: true, addContactError: '' };

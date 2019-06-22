@@ -23,14 +23,14 @@ export const addContactModifyAddEmail = text => (
 export const addContactAdd = email => (
     dispatch => {
         dispatch({ type: ADD_CONTACT_LOADING });
-        const emailB64 = b64.encode(email);
+        const emailB64 = b64.encode(email.toLowerCase());
         firebase.database().ref(`/contacts/${emailB64}`)
             .once('value')
             .then(snapshot => {
                 if (snapshot.val()) {
                     const userData = _.first(_.values(snapshot.val()));
                     const currentUser = firebase.auth().currentUser;
-                    const emailUser64 = b64.encode(currentUser.email);
+                    const emailUser64 = b64.encode(currentUser.email.toLowerCase());
                     if (emailB64 !== emailUser64) {
                         firebase.database().ref(`/user_contacts/${emailUser64}`)
                             .push({ email, name: userData.name })
@@ -119,7 +119,6 @@ export const chatUserFetch = contactEmail => {
     const userEmail = firebase.auth().currentUser.email;
     const userEmailB64 = b64.encode(userEmail);
     const contactEmailB64 = b64.encode(contactEmail);
-
     return dispatch => {
         firebase.database().ref(`/messages/${userEmailB64}/${contactEmailB64}`)
             .on('value', snapshot => {
@@ -134,8 +133,6 @@ export const chatUserFetch = contactEmail => {
 export const chatsUserFetch = () => {
     const userEmail = firebase.auth().currentUser.email;
     const userEmailB64 = b64.encode(userEmail);
-
-    console.log(userEmail);
 
     return dispatch => {
         firebase.database().ref(`/user_chats/${userEmailB64}/`)

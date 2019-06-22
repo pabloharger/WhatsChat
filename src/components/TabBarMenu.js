@@ -10,8 +10,7 @@ import {
 import { TabBar } from 'react-native-tab-view';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
-import { updateSuccess } from '../actions/AppActions';
+import { updateSuccess, test } from '../actions/AppActions';
 import { loginSignOut } from '../actions/AutenticationActions';
 
 const imgAddContact = require('../imgs/add-contact.png');
@@ -98,4 +97,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect(null, { updateSuccess, loginSignOut })(TabBarMenu);
+export default connect(null, { updateSuccess, loginSignOut, test })(TabBarMenu);

@@ -13,6 +13,7 @@ import {
     LOGIN_LOADING,
     LOGIN_SIGN_OUT,
 } from './types';
+import { config } from '../../config.js';
 
 export const modifyEmail = text => (
     {
@@ -39,9 +40,9 @@ export const registerUser = ({ name, email, password }) => (
     dispatch => {
         dispatch({ type: REGISTER_LOADING });
         
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email.toLowerCase(), password)
             .then(() => {
-                const emailb64 = b64.encode(email);
+                const emailb64 = b64.encode(email.toLowerCase());
                 firebase.database().ref(`/contacts/${emailb64}`)
                     .push({ name })
                     .then(() => registerUserSuccessful(dispatch));
@@ -91,6 +92,11 @@ export const loginSignOut = () => (
         firebase.auth().signOut()
             .then(() => {
                 dispatch({ type: LOGIN_SIGN_OUT });
+                firebase.app()
+                    .delete()
+                    .then(() => {
+                        firebase.initializeApp(config);
+                });
                 Actions.login();
             });
     }
